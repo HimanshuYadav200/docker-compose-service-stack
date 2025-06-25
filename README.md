@@ -15,43 +15,47 @@ This project demonstrates a simple microservices setup using **Docker Compose**,
 ## 🚀 Setup Instructions
 
 ### 🔄 Copy Source Code to Docker VM
-Use `scp` to transfer services from your local machine to the Docker VM:
 
-```bash
+Use scp to transfer your services from your local machine to the Docker VM:
+
 # Copy Service 1 (Go)
 scp -i "Docker-VM_keyy.pem" -r "C:\Path\to\service_1" azureuser@<VM_IP>:/home/azureuser/service1
-```
+
 # Copy Service 2 (Flask)
 scp -i "Docker-VM_keyy.pem" -r "C:\Path\to\service_2" azureuser@<VM_IP>:/home/azureuser/service2
-```
+
 Replace <VM_IP> with your Docker VM’s public IP.
-```
+
 ▶️ Run Services via Docker Compose
-SSH into your Docker VM, then from the directory containing docker-compose.yml:
+
+SSH into your Docker VM, then from the directory containing docker-compose.yml, run:
 docker compose up --build -d
 Confirm services are running:
 docker ps
 
 🌐 How Routing Works
-Nginx forwards requests based on path prefix:
 
+Nginx forwards requests based on path prefix:
 Endpoint	Routed To	Port
 http://<VM_IP>:8080/service1/ping	service1	8001
 http://<VM_IP>:8080/service2/hello	service2	8002
-Example requests:
+
+Example:
 curl http://localhost:8080/service1/ping
 curl http://localhost:8080/service2/hello
 
 🎁 Bonus Features
-✅ Health Checks for both services using /ping
 
+✅ Health Checks for both services using /ping
 ✅ Memory Limits added via mem_limit in docker-compose.yml
 
 🧹 Tear Down
+
 To stop and remove containers:
 docker compose down
 
 📁 Project Structure
+
 .
 ├── docker-compose.yml
 ├── nginx/
